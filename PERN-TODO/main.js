@@ -1,0 +1,1 @@
+"main": "lib/functions/src/index.js",
