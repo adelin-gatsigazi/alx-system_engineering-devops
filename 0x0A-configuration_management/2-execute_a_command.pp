@@ -1,6 +1,6 @@
 # kills a process named killmenow
 
-exec { 'killmenow':
+exec { 'pkill -f killmenow':
   command => 'pkill killmenow',
   path => '/usr/bin/:/usr/local/bin/:/bin/',
 }
