@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 # Run Apache on the holbertonschool/265-0 docker container
-docker pull httpd
-cat << EOF > Dockerfile
-FROM httpd
 RUN echo "Hello Holberton" > /usr/local/apache2/htdocs/index.html
 EOF
 docker build -t my-apache-image .
