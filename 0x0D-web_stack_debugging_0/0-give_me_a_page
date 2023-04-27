@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 # Run Apache on the holbertonschool/265-0 docker container
-RUN echo "Hello Holberton" > /usr/local/apache2/htdocs/index.html
-EOF
-docker build -t my-apache-image .
-docker run -p 8080:80 -d my-apache-image 
+echo "Hello Holberton" > /usr/local/apache2/htdocs/index.html
+service apache2 start
 
