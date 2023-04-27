@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Run Apache on the holbertonschool/265-0 docker container
 docker pull httpd
 cat << EOF > Dockerfile
 FROM httpd
