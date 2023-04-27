@@ -1,0 +1,5 @@
+#!/bin/bash
+#connect to your server using the private key
+
+ssh -i ~/.ssh/school ubuntu@8.8.8.8 
+
