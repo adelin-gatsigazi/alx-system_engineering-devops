@@ -1,4 +1,5 @@
 Host myserver*
 
-IdentityFile ~/.ssh/school
-    PasswordAuthentication no
+          IdentityFile ~/.ssh/school
+          PasswordAuthentication no 
+
