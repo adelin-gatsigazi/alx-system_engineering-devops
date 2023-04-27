@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-get Apache to run on the container and to return a page containing Hello Holberton when querying the root of it
+docker pull httpd
+cat << EOF > Dockerfile
+FROM httpd
 RUN echo "Hello Holberton" > /usr/local/apache2/htdocs/index.html
-docker build -t my-apache-image 
+EOF
+docker build -t my-apache-image .
+docker run -p 8080:80 -d my-apache-image 
 
