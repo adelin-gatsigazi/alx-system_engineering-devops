@@ -1,11 +1,23 @@
-#!/usr/bin/env bash
-# Install nginx and add a custom header
-apt-get update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-echo "Holberton School" > /var/www/html/index.nginx-debian.html
-echo "Ceci n'est pas une page" > /usr/share/nginx/html/custom_404.html
-sed -i "/listen 80 default_server/a \\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;" /etc/nginx/sites-available/default
-sed -i "/listen 80 default_server/a \\\terror_page 404 /custom_404.html; location = /custom_404.html {root /usr/share/nginx/html;\n\tinternal;}" /etc/nginx/sites-available/default
-sed -i "/listen 80 default_server/a \\\tadd_header X-Served-By $(hostname);" /etc/nginx/sites-available/default
-service nginx restart
+#!/bin/bash
+
+# Install HAproxy
+sudo apt-get update && sudo apt-get install haproxy -y
+
+# Configure HAproxy
+cat <<EOF | sudo tee /etc/haproxy/haproxy.cfg
+frontend http
+    bind *:80
+    mode http
+    default_backend webservers
+
+backend webservers
+    mode http
+    balance roundrobin
+    server web-01 [STUDENT_ID]-web-01:80 check
+    server web-02 [STUDENT_ID]-web-02:80 check
+EOF
+
+# Test and restart HAproxy
+sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+sudo service haproxy restart
+
