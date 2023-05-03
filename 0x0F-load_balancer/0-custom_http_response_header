@@ -31,4 +31,5 @@ server_config=\
 }"
 
 echo "$server_config" > /etc/nginx/sites-enabled/default
-sudo service nginx restart
+sudo service nginx restart 
+
