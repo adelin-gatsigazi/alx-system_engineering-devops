@@ -1,4 +1,4 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 apt-get update
 apt-get -y install nginx
 ufw allow 'Nginx HTTP'
@@ -22,4 +22,4 @@ printf %s "server {
     }
 }" > /etc/nginx/sites-available/default
 
-service nginx restart
+service nginx restart 
