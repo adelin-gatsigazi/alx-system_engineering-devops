@@ -22,27 +22,22 @@
 # fi
 #-- To be evaluated --
 
-function check_record {
-    local domain="$1"
-    local subdomain="$2"
-    local record_type="$3"
-    local destination=$(dig +short "${subdomain}.${domain}" "${record_type}" | tail -n 1)
-    echo "The subdomain ${subdomain} is a ${record_type} record and points to ${destination}"
+runDig () {
+    subdomain=$1
+    domain=$2
+
+    dig "$subdomain.$domain" | grep -A1 'ANSWER SECTION:' | tail -1 | awk -v s="$subdomain" 'BEGIN { FS = " " } ; { print "The subdomain " s " is a " $4 " record and points to " $5 }'
 }
 
-if [ -z "$1" ]; then
-    echo "Usage: $0 domain [subdomain]"
-    exit 1
+if [ $# -eq 1 ]; then
+    domain="$1"
+    for i in "${subdomains_all[@]}"
+    do
+	runDig "$i" "$domain"
+    done
+elif [ $# -eq 2 ]; then
+    domain="$1"
+    subdomain="$2"
+    runDig "$subdomain" "$domain"
 fi
-
-domain="$1"
-subdomains=("www" "lb-01" "web-01" "web-02")
-
-if [ -n "$2" ]; then
-    subdomains=("$2")
-fi
-
-for subdomain in "${subdomains[@]}"; do
-    check_record "${domain}" "${subdomain}" "A"
-done
 
