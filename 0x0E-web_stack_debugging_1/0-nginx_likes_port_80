@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Configure Nginx to listen on port 80 of all the server's active IPv4 IPs
-# configures nginx to run and listen to port 80
+# Install Nginx
 
 rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
